@@ -126,9 +126,8 @@ Dans cet exemple :
 
 En suivant ces étapes, vous pourrez utiliser efficacement la version dockerisée de NeoVim et profiter d'un environnement de développement cohérent et personnalisable.
 
-
-
 ## Configuration
+
 
 ## Personnalisation des Plugins
 

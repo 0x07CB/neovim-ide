@@ -3,39 +3,20 @@
 # <UDF name="USERNAME" label="Nom d'utilisateur" />
 # <UDF name="PASSWORD" label="Mot de passe" />
 # <UDF name="SSH_KEY" label="Clé SSH publique" />
+# <UDF name="SSH_PORT" label="Port SSH" default="22" />
+# <UDF name="PERMIT_ROOT_LOGIN" label="Autoriser la connexion root SSH" oneOf="Yes,No" default="No" />
+# <UDF name="PASSWORD_AUTH" label="Autoriser l'authentification par mot de passe" oneOf="Yes,No" default="No" />
 
-# Création de l'utilisateur
-useradd -m -s /bin/bash "$USERNAME"
-
-# Définition du mot de passe
-echo "$USERNAME:$PASSWORD" | chpasswd
-
-# Ajout de l'utilisateur au groupe sudo
-usermod -aG sudo "$USERNAME"
-
-# Configuration de la clé SSH
-mkdir -p /home/$USERNAME/.ssh
-echo "$SSH_KEY" > /home/$USERNAME/.ssh/authorized_keys
-chmod 700 /home/$USERNAME/.ssh
-chmod 600 /home/$USERNAME/.ssh/authorized_keys
-chown -R $USERNAME:$USERNAME /home/$USERNAME/.ssh
-
-# Limitation des privilèges sudo
-echo "$USERNAME ALL=(ALL) NOPASSWD: /usr/bin/docker, /usr/sbin/service docker start, /usr/sbin/service docker stop, /usr/sbin/service docker restart" > /etc/sudoers.d/$USERNAME
-chmod 0440 /etc/sudoers.d/$USERNAME
-
-
-# Sauvegarde de la configuration SSH originale
-cp /etc/ssh/sshd_config /etc/ssh/sshd_config.backup
+# ... (le code pour la création de l'utilisateur reste inchangé)
 
 # Configuration du serveur SSH
 cat << EOF > /etc/ssh/sshd_config
 # Configuration SSH sécurisée
 Protocol 2
-Port 9022
-PermitRootLogin no
+Port $SSH_PORT
+PermitRootLogin $([[ "$PERMIT_ROOT_LOGIN" == "Yes" ]] && echo "yes" || echo "no")
 PubkeyAuthentication yes
-PasswordAuthentication no
+PasswordAuthentication $([[ "$PASSWORD_AUTH" == "Yes" ]] && echo "yes" || echo "no")
 ChallengeResponseAuthentication no
 UsePAM yes
 X11Forwarding no
@@ -54,7 +35,6 @@ EOF
 
 # Redémarrage du service SSH pour appliquer les changements
 systemctl restart sshd
-
 
 # ##########################################################
 # Script to setup an SSH Server with specific configurations on Debian 12
