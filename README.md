@@ -130,13 +130,28 @@ Voici quelques exemples d'utilisation :
 
 En suivant ces étapes, vous pourrez utiliser efficacement la version dockerisée de NeoVim et profiter d'un environnement de développement cohérent et personnalisable.
 
-
-## Configuration
-
-
-## Personnalisation des Plugins
-
 ## Contribution
+
+Nous accueillons chaleureusement les contributions à ce projet ! Voici comment vous pouvez participer :
+
+1. **Forkez le dépôt** : Créez votre propre copie du projet sur GitHub.
+
+2. **Créez une branche** : `git checkout -b nom-de-votre-fonctionnalite`
+
+3. **Committez vos changements** : `git commit -am 'Ajout d'une nouvelle fonctionnalité'`
+
+4. **Poussez vers la branche** : `git push origin nom-de-votre-fonctionnalite`
+
+5. **Ouvrez une Pull Request** : Soumettez vos modifications pour révision.
+
+### Lignes directrices pour la contribution
+
+- Assurez-vous que votre code respecte les conventions de style du projet.
+- Testez soigneusement vos modifications avant de soumettre une pull request.
+- Documentez clairement toute nouvelle fonctionnalité ou modification importante.
+- Respectez le code de conduite du projet dans toutes vos interactions.
+
+Nous apprécions grandement votre aide pour améliorer ce projet !
 
 ## Licence
 
@@ -148,3 +163,12 @@ Ce projet est sous licence MIT. Voir le fichier [LICENSE](LICENSE) pour plus de 
 
 ## Remerciements
 
+Nous tenons à remercier chaleureusement :
+
+- La communauté NeoVim pour leur travail exceptionnel sur cet éditeur puissant.
+- Les contributeurs du projet LazyVim pour leur configuration inspirante.
+- Les développeurs de Docker pour avoir facilité la création d'environnements cohérents.
+- Tous les contributeurs open source dont les outils et plugins enrichissent notre expérience de développement.
+- Les utilisateurs et testeurs de ce projet pour leurs retours précieux et leur soutien continu.
+
+Votre engagement et votre passion pour l'amélioration des outils de développement sont une source d'inspiration constante pour ce projet.
