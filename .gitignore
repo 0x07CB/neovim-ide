@@ -1,0 +1,60 @@
+# Ignorer les fichiers générés par l'IDE
+.idea/
+.vscode/
+
+# Ignorer les fichiers système
+.DS_Store
+Thumbs.db
+
+# Ignorer les logs et les fichiers temporaires
+logs/
+*.log
+*.tmp
+*.pid
+
+# Ignorer les fichiers générés par Docker
+docker-compose.override.yml
+docker-compose.yml
+*.env
+.env.local
+.env.*
+docker/
+
+# Ignorer les artefacts de build
+*.o
+*.a
+*.out
+*.so
+*.dll
+*.exe
+
+# Ignorer les fichiers de configuration NeoVim générés dynamiquement
+**/autoload/
+**/plugged/
+**/bundle/
+**/session/
+
+# Ignorer les fichiers d'installation du package manager (si utilisés)
+node_modules/
+package-lock.json
+yarn.lock
+
+# Ignorer les fichiers Python (si applicable au projet)
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ignorer les archives et fichiers compressés
+*.zip
+*.tar.gz
+*.tar.bz2
+*.rar
+
+# Ignorer les fichiers de configuration utilisateur
+*.swp
+*.swo
+*.swn
+
+# Ignorer le fichier LICENSE si vous ne voulez pas le suivre (optionnel)
+LICENSE
