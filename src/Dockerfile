@@ -13,7 +13,17 @@ LABEL maintainer="0x07cb"
 
 RUN echo "constructing the image..."
 # Utilisateur root pour les installations
+# Création d'un utilisateur non-root avec des privilèges sudo limités
+RUN useradd -m -s /bin/bash -G sudo dockeruser && \
+    echo 'dockeruser ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+
+# Utilisation temporaire de l'utilisateur root pour les installations
+# Le changement vers l'utilisateur non-root se fera après les installations
 USER root
+
+# Note: La définition/redéfinition du nom d'utilisateur et du mot de passe
+# au premier lancement du conteneur nécessitera un script d'initialisation
+# à exécuter lors du démarrage du conteneur, ce qui n'est pas inclus ici.
 
 # Install dependencies
 RUN apt-get update 
