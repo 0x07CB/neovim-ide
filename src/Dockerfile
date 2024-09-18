@@ -14,8 +14,12 @@ LABEL maintainer="0x07cb"
 RUN echo "constructing the image..."
 # Utilisateur root pour les installations
 # Création d'un utilisateur non-root avec des privilèges sudo limités
-RUN useradd -m -s /bin/bash -G sudo dockeruser && \
-    echo 'dockeruser ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+# Crée un nouvel utilisateur pour l'usage de l'application
+RUN useradd -m -s /bin/bash -G sudo appuser && \
+    echo 'appuser ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+# Création du dossier 'data' dans le répertoire personnel de l'utilisateur appuser
+RUN mkdir -p /home/appuser/data && chown appuser:appuser /home/appuser/data
+
 
 # Utilisation temporaire de l'utilisateur root pour les installations
 # Le changement vers l'utilisateur non-root se fera après les installations
@@ -92,12 +96,9 @@ RUN echo -e "\e[32mINSTALL neovim...\e[0m"
 RUN make CMAKE_INSTALL_PREFIX=/usr/local/ install
 RUN echo -e "\e[32mneovim installed successfully\e[0m"
 
-# Crée un nouvel utilisateur pour l'usage de l'application
-RUN useradd -ms /bin/bash appuser
 # Change l'utilisateur à 'newuser'
 USER appuser
 WORKDIR /home/appuser
-RUN mkdir -p ~/data/
 
 # clone repo of nerdfonts
 RUN git clone --depth 1 https://github.com/ryanoasis/nerd-fonts.git
