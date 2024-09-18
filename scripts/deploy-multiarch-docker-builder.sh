@@ -7,7 +7,27 @@
 # <UDF name="PERMIT_ROOT_LOGIN" label="Autoriser la connexion root SSH" oneOf="Yes,No" default="No" />
 # <UDF name="PASSWORD_AUTH" label="Autoriser l'authentification par mot de passe" oneOf="Yes,No" default="No" />
 
-# ... (le code pour la création de l'utilisateur reste inchangé)
+# Création de l'utilisateur
+useradd -m -s /bin/bash "$USERNAME"
+echo "$USERNAME:$PASSWORD" | chpasswd
+
+# Ajout de l'utilisateur au groupe sudo
+usermod -aG sudo "$USERNAME"
+
+# Création du répertoire .ssh pour l'utilisateur
+mkdir -p /home/"$USERNAME"/.ssh
+chmod 700 /home/"$USERNAME"/.ssh
+
+# Ajout de la clé SSH publique au fichier authorized_keys
+echo "$SSH_KEY" > /home/"$USERNAME"/.ssh/authorized_keys
+chmod 600 /home/"$USERNAME"/.ssh/authorized_keys
+chown -R "$USERNAME":"$USERNAME" /home/"$USERNAME"/.ssh
+
+# Configuration des permissions pour le répertoire home de l'utilisateur
+chmod 750 /home/"$USERNAME"
+
+echo "L'utilisateur $USERNAME a été créé avec succès."
+
 
 # Configuration du serveur SSH
 cat << EOF > /etc/ssh/sshd_config
