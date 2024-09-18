@@ -51,80 +51,85 @@ git clone https://github.com/0x07cb/neovim-ide.git
 
 ## Utilisation
 
-Pour utiliser cette configuration NeoVim dockerisée, suivez les étapes ci-dessous :
+Pour utiliser cette configuration NeoVim dockerisée comme vous utiliseriez la commande `nvim` normale, suivez ces étapes :
 
 ### 1. Lancer le conteneur Docker
 
-Exécutez la commande suivante pour lancer le conteneur NeoVim. Remplacez `/chemin/vers/votre/projet` par le chemin de votre projet local.
+Utilisez la commande suivante pour lancer le conteneur NeoVim, en montant le répertoire courant dans le conteneur :
 
 ```bash
 docker run --rm -it \
-    -v /chemin/vers/votre/projet:/workspace \
-    -v ~/.config/nvim:/home/dockeruser/.config/nvim \
-    neovim-ide:latest
+    -v $(pwd):/home/appuser/data \
+    neovim-ide:latest \
+    nvim "$@"
 ```
 
 **Explications des options :**
 - `--rm` : Supprime le conteneur une fois qu'il est arrêté.
 - `-it` : Ouvre une session interactive avec un terminal.
-- `-v /chemin/vers/votre/projet:/workspace` : Monte votre projet local dans le conteneur pour un accès facile.
-- `-v ~/.config/nvim:/home/dockeruser/.config/nvim` : Monte votre configuration NeoVim locale dans le conteneur, vous permettant de personnaliser votre environnement.
+- `-v $(pwd):/home/appuser/data` : Monte le répertoire courant dans le dossier `/home/appuser/data` du conteneur.
+- `"$@"` : Passe tous les arguments de ligne de commande à la commande `nvim` dans le conteneur.
 
-### 2. Accéder à NeoVim
+### 2. Créer un alias
 
-Une fois le conteneur lancé, vous serez dans un shell interactif. Pour ouvrir NeoVim, tapez simplement :
-
-```bash
-nvim
-```
-
-### 3. Personnaliser la Configuration
-
-Votre configuration NeoVim se trouve sur votre machine hôte et est montée dans le conteneur. Vous pouvez la modifier directement en éditant les fichiers dans `~/.config/nvim`. Les modifications seront automatiquement disponibles dans le conteneur.
-
-### 4. Gestion des Plugins
-
-Les plugins sont gérés via LazyVim. Pour installer de nouveaux plugins ou mettre à jour les existants, utilisez les commandes suivantes dans NeoVim :
-
-- **Installer les plugins :**
-  ```vim
-  :Lazy install
-  ```
-
-- **Mettre à jour les plugins :**
-  ```vim
-  :Lazy update
-  ```
-
-### 5. Sauvegarder les Modifications
-
-Assurez-vous que toutes les configurations et les projets sont sauvegardés sur votre machine hôte grâce au montage des volumes. Cela garantit que vos données persistent même après l'arrêt du conteneur.
-
-### 6. Arrêter le Conteneur
-
-Pour arrêter le conteneur, vous pouvez simplement quitter NeoVim et fermer le terminal, ou utiliser la combinaison de touches `Ctrl + D` dans le shell interactif.
-
-### Exemple Complet
-
-Voici un exemple complet de commande pour lancer le conteneur avec un projet spécifique :
+Pour simplifier l'utilisation, vous pouvez créer un alias dans votre fichier de configuration shell (`.bashrc` ou `.zshrc`). Ajoutez la ligne suivante à votre fichier de configuration :
 
 ```bash
-docker run --rm -it \
-    -v ~/projets/myapp:/workspace \
-    -v ~/.config/nvim:/home/dockeruser/.config/nvim \
-    neovim-ide:latest
+alias nvim-docker='docker run --rm -it -v $(pwd):/home/appuser/data neovim-ide:latest nvim'
 ```
 
-Dans cet exemple :
-- Le projet `myapp` situé dans `~/projets` est monté dans le conteneur.
-- La configuration NeoVim locale est utilisée à l'intérieur du conteneur.
+Après avoir ajouté cet alias, rechargez votre configuration shell ou redémarrez votre terminal.
+
+### 3. Utilisation de l'alias
+
+Maintenant, vous pouvez utiliser `nvim-docker` comme vous utiliseriez `nvim` normalement. Par exemple :
+
+```bash
+# Ouvrir un fichier
+nvim-docker fichier.txt
+
+# Ouvrir plusieurs fichiers
+nvim-docker fichier1.txt fichier2.txt
+
+# Ouvrir un répertoire
+nvim-docker .
+```
+
+Le répertoire courant sera automatiquement monté dans le conteneur, vous permettant d'accéder à tous les fichiers du répertoire actuel et de ses sous-répertoires.
+
+
+### Exemple d'utilisation
+
+Voici quelques exemples d'utilisation :
+
+1. Ouvrir un fichier dans le répertoire courant :
+   ```bash
+   nvim-docker mon_fichier.py
+   ```
+
+2. Ouvrir plusieurs fichiers :
+   ```bash
+   nvim-docker fichier1.js fichier2.js fichier3.js
+   ```
+
+3. Ouvrir un répertoire pour navigation :
+   ```bash
+   nvim-docker .
+   ```
+
+4. Utiliser des options de NeoVim :
+   ```bash
+   nvim-docker -p fichier1.txt fichier2.txt
+   ```
 
 ### Remarques
 
-- **Permissions :** Assurez-vous que votre utilisateur a les permissions nécessaires pour exécuter des commandes Docker sans `sudo`. Sinon, préfixez les commandes Docker avec `sudo`.
-- **Mises à Jour :** Pour obtenir les dernières mises à jour de la configuration NeoVim, reconstruisez l'image Docker en suivant les instructions dans la section [Construisez l'image Docker](DOCKER_BUILD.md).
+- Assurez-vous d'avoir les permissions nécessaires pour exécuter Docker sans `sudo`. Sinon, vous devrez ajuster l'alias en conséquence.
+- La première exécution peut prendre un peu de temps car Docker doit télécharger l'image. Les lancements suivants seront plus rapides.
+- Toutes les modifications apportées aux fichiers dans NeoVim seront reflétées dans votre système de fichiers local, car le répertoire courant est monté dans le conteneur.
 
 En suivant ces étapes, vous pourrez utiliser efficacement la version dockerisée de NeoVim et profiter d'un environnement de développement cohérent et personnalisable.
+
 
 ## Configuration
 
