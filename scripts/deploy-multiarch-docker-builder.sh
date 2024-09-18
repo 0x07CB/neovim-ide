@@ -25,6 +25,37 @@ echo "$USERNAME ALL=(ALL) NOPASSWD: /usr/bin/docker, /usr/sbin/service docker st
 chmod 0440 /etc/sudoers.d/$USERNAME
 
 
+# Sauvegarde de la configuration SSH originale
+cp /etc/ssh/sshd_config /etc/ssh/sshd_config.backup
+
+# Configuration du serveur SSH
+cat << EOF > /etc/ssh/sshd_config
+# Configuration SSH sécurisée
+Protocol 2
+Port 9022
+PermitRootLogin no
+PubkeyAuthentication yes
+PasswordAuthentication no
+ChallengeResponseAuthentication no
+UsePAM yes
+X11Forwarding no
+PrintMotd no
+AcceptEnv LANG LC_*
+Subsystem sftp /usr/lib/openssh/sftp-server
+AllowUsers $USERNAME
+
+# Paramètres de sécurité supplémentaires
+MaxAuthTries 3
+LoginGraceTime 60
+PermitEmptyPasswords no
+ClientAliveInterval 300
+ClientAliveCountMax 2
+EOF
+
+# Redémarrage du service SSH pour appliquer les changements
+systemctl restart sshd
+
+
 # ##########################################################
 # Script to setup an SSH Server with specific configurations on Debian 12
 #
@@ -68,6 +99,8 @@ systemctl enable docker --now
 # Add user to docker group
 usermod -aG docker $USERNAME
 # ##########################################################
+
+
 
 
 
