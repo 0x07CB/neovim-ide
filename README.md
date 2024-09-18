@@ -28,6 +28,9 @@ Bienvenue dans **neovim-ide** – une configuration NeoVim dockerisée innovante
 Pour installer et utiliser cette configuration NeoVim dockerisée, suivez ces étapes :
 
 1. Clonez ce dépôt
+```
+git clone https://github.com/0x07cb/neovim-ide.git
+```
 2. [Construisez l'image Docker](DOCKER_BUILD.md)
 3. Lancez le conteneur
 
