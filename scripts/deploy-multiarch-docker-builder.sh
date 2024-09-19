@@ -1,35 +1,35 @@
 #!/bin/bash
 
-# <UDF name="USERNAME" label="Nom d'utilisateur" />
-# <UDF name="PASSWORD" label="Mot de passe" />
-# <UDF name="SSH_KEY" label="Clé SSH publique" />
-# <UDF name="SSH_PORT" label="Port SSH" default="22" />
-# <UDF name="PERMIT_ROOT_LOGIN" label="Autoriser la connexion root SSH" oneOf="Yes,No" default="No" />
-# <UDF name="PASSWORD_AUTH" label="Autoriser l'authentification par mot de passe" oneOf="Yes,No" default="No" />
+# <UDF name="USERNAME" label="Username" />
+# <UDF name="PASSWORD" label="Password" />
+# <UDF name="SSH_KEY" label="Public SSH Key" />
+# <UDF name="SSH_PORT" label="SSH Port" default="22" />
+# <UDF name="PERMIT_ROOT_LOGIN" label="Allow SSH root login" oneOf="Yes,No" default="No" />
+# <UDF name="PASSWORD_AUTH" label="Allow password authentication" oneOf="Yes,No" default="No" />
 
-# Création de l'utilisateur
+# Creating the user
 useradd -m -s /bin/bash "$USERNAME"
 echo "$USERNAME:$PASSWORD" | chpasswd
 
-# Ajout de l'utilisateur au groupe sudo
+# Adding the user to the sudo group
 usermod -aG sudo "$USERNAME"
 
-# Création du répertoire .ssh pour l'utilisateur
+# Creating the .ssh directory for the user
 mkdir -p /home/"$USERNAME"/.ssh
 chmod 700 /home/"$USERNAME"/.ssh
 
-# Ajout de la clé SSH publique au fichier authorized_keys
+# Adding the public SSH key to the authorized_keys file
 echo "$SSH_KEY" > /home/"$USERNAME"/.ssh/authorized_keys
 chmod 600 /home/"$USERNAME"/.ssh/authorized_keys
 chown -R "$USERNAME":"$USERNAME" /home/"$USERNAME"/.ssh
 
-# Configuration des permissions pour le répertoire home de l'utilisateur
+# Setting permissions for the user's home directory
 chmod 750 /home/"$USERNAME"
 
 echo "L'utilisateur $USERNAME a été créé avec succès."
 
 
-# Configuration du serveur SSH
+# SSH server configuration
 cat << EOF > /etc/ssh/sshd_config
 # Configuration SSH sécurisée
 Protocol 2
@@ -53,18 +53,17 @@ ClientAliveInterval 300
 ClientAliveCountMax 2
 EOF
 
-# Redémarrage du service SSH pour appliquer les changements
+# Restarting the SSH service to apply changes
 systemctl restart sshd
 
 # ##########################################################
-# Script to setup an SSH Server with specific configurations on Debian 12
+# Script to configure an SSH server with specific settings on Debian 12
 #
-# Update system packages
-# Mise à jour des paquets système
+# Updating system packages
 apt-get update
 apt-get upgrade -y
 
-# Installation des paquets requis
+# Installing required packages
 apt-get install -y \
     apt-transport-https \
     gnupg \
@@ -73,14 +72,14 @@ apt-get install -y \
 
 #
 # #############################
-# Add Docker's official GPG key:
+# Adding Docker's official GPG key:
 apt-get update
 apt-get install ca-certificates curl
 install -m 0755 -d /etc/apt/keyrings
 curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
 chmod a+r /etc/apt/keyrings/docker.asc
 #
-# Add the repository to Apt sources:
+# Adding the repository to Apt sources:
 echo \
   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian \
   $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
@@ -96,7 +95,7 @@ apt-get install -y \
 # ##########################################################
 systemctl enable docker --now
 # ##########################################################
-# Add user to docker group
+# Adding the user to the docker group
 usermod -aG docker $USERNAME
 # ##########################################################
 
