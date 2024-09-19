@@ -1,22 +1,23 @@
-# Construction de l'image Docker
+```markdown
+# Building the Docker Image
 
-Pour construire l'image Docker de neovim-ide, suivez ces étapes :
+To build the neovim-ide Docker image, follow these steps:
 
-## 1. Créer un builder multi-plateforme
+## 1. Create a Multi-platform Builder
 
-Exécutez la commande suivante pour créer un builder Docker capable de construire des images pour différentes architectures :
+Run the following command to create a Docker builder capable of building images for different architectures:
 
 ```bash
 docker buildx create --name container-builder --driver docker-container --use --bootstrap
 ```
 
-Pour plus d'informations sur la création des builders, consultez la documentation officielle : [Docker - Multi-platform](https://docs.docker.com/build/building/multi-platform/)
+For more information on creating builders, refer to the official documentation: [Docker - Multi-platform](https://docs.docker.com/build/building/multi-platform/)
 
-## 2. Construire l'image
+## 2. Build the Image
 
-Exécutez la commande suivante pour construire l'image Docker :
+Run the following command to build the Docker image:
 
-Par exemple, pour les plateformes : `linux/arm64` et `linux/amd64`
+For example, for the platforms: `linux/arm64` and `linux/amd64`
 ```bash
 sudo docker buildx build \
     --platform linux/arm64,linux/amd64 \
@@ -25,8 +26,11 @@ sudo docker buildx build \
     --progress=plain \
     --push .
 ```
-L'argument `--push` permet d'envoyer l'image construite sur le registre Docker.  
-Si vous souhaitez simplement construire l'image sans l'envoyer, supprimez l'argument `--push`.  
-En revanche, si vous poussez l'image sur le registre Docker, assurez-vous que le registre est configuré et accessible. Dans ce cas, l'argument `-t` doit inclure le registre Docker, et vous devrez renseigner le nom d'utilisateur et le dépôt. Remplacez `<username>` et `<repository>` par les valeurs appropriées.
+The `--push` argument allows the built image to be pushed to the Docker registry.  
+If you only want to build the image without pushing it, remove the `--push` argument.  
+However, if you are pushing the image to the Docker registry, make sure the registry is configured and accessible. In that case, the `-t` argument must include the Docker registry, and you will need to provide the correct username and repository by replacing `<username>` and `<repository>` with the appropriate values.
 
-Si vous n'avez pas installé Docker Engine sur votre système, suivez les instructions sur la page de la documentation officielle : [Docker Engine - Install](https://docs.docker.com/engine/install/)
+If Docker Engine is not installed on your system, follow the instructions on the official documentation page: [Docker Engine - Install](https://docs.docker.com/engine/install/)
+```
+
+Here is the translated version of the text in English.

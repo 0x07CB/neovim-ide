@@ -1,66 +1,66 @@
 # neovim-ide
-> Configuration de NeoVim dockerisée basée sur le plugin LazyVim.
+> Dockerized NeoVim IDE configuration based on the LazyVim plugin.
 
 [![DockerHub](https://img.shields.io/badge/DockerHub-0x07cb%2Fneovim--ide-blue)](https://hub.docker.com/r/0x07cb/neovim-ide)
 
-## Table des Matières
+## Table of Contents
 
 1. [Introduction](#introduction)
-2. [Fonctionnalités](#fonctionnalités)
-3. [Prérequis](#prérequis)
+2. [Features](#features)
+3. [Requirements](#requirements)
 4. [Installation](#installation)
-5. [Utilisation](#utilisation)
+5. [Usage](#usage)
 6. [Configuration](#configuration)
-7. [Personnalisation des Plugins](#personnalisation-des-plugins)
+7. [Plugin Customization](#plugin-customization)
 8. [Contribution](#contribution)
-9. [Licence](#licence)
-10. [Auteurs](#auteurs)
-11. [Remerciements](#remerciements)
+9. [License](#license)
+10. [Authors](#authors)
+11. [Acknowledgments](#acknowledgments)
 
 ## Introduction
 
-Bienvenue dans **neovim-ide** – une configuration NeoVim dockerisée innovante basée sur le plugin LazyVim. Que vous soyez un développeur chevronné ou débutant, notre configuration vous offre un environnement de développement puissant, flexible et facile à personnaliser. Profitez d'une productivité accrue grâce à des outils intégrés, une gestion efficace des plugins, et une interface épurée qui s'adapte à vos besoins. Plongez dans une expérience de codage optimisée et découvrez la puissance de NeoVim comme jamais auparavant !
+Welcome to **neovim-ide** – an innovative Dockerized NeoVim configuration based on the LazyVim plugin. Whether you're a seasoned developer or just starting out, our setup offers a powerful, flexible, and easy-to-customize development environment. Increase your productivity with integrated tools, efficient plugin management, and a clean interface that adapts to your needs. Dive into an optimized coding experience and discover the power of NeoVim like never before!
 
-## Fonctionnalités
+## Features
 
-- **Multi-plateforme** : L'image est conçue pour fonctionner sur les plateformes `linux/arm64` et `linux/amd64`.
-- **Docker** : L'image est basée sur Docker, ce qui permet une installation et une utilisation faciles.
-- **LazyVim** : Utilisation du plugin LazyVim pour une configuration NeoVim optimisée.
-- **Plugins** : Intégration de plugins essentiels pour une productivité maximale.
-- **Personnalisation** : Facilité de personnaliser la configuration selon les besoins spécifiques.
+- **Cross-platform**: The image is designed to work on `linux/arm64` and `linux/amd64` platforms.
+- **Docker**: The image is based on Docker, allowing for easy installation and use.
+- **LazyVim**: Uses the LazyVim plugin for an optimized NeoVim configuration.
+- **Plugins**: Integration of essential plugins for maximum productivity.
+- **Customization**: Easily customize the configuration to suit specific needs.
 
-## Systèmes et architectures pris en charge
+## Supported Systems and Architectures
 
-- Linux : `amd64`, `arm64`
+- Linux: `amd64`, `arm64`
 
-## Prérequis
+## Requirements
 
-- **Docker** : Assurez-vous que Docker est installé sur votre système. Vous pouvez télécharger et installer Docker depuis [Docker Hub](https://www.docker.com/get-started).
-- **Permissions Docker** : L'utilisateur doit avoir les permissions nécessaires pour exécuter les commandes Docker. Cela peut nécessiter l'ajout de votre utilisateur au groupe `docker` ou l'utilisation de `sudo`.
-- **Ressources système** : Vérifiez que votre système dispose de suffisamment de ressources (CPU, mémoire, stockage) pour exécuter le conteneur de manière efficace.
-- **Accès Internet** (si nécessaire) : Selon les fonctionnalités de la configuration NeoVim, un accès Internet pourrait être requis pour télécharger des plugins ou des mises à jour.
-- **Configurations optionnelles** : Si vous prévoyez de monter des volumes pour persister vos configurations ou projets, assurez-vous que les chemins de volumes sont correctement configurés.
+- **Docker**: Ensure that Docker is installed on your system. You can download and install Docker from [Docker Hub](https://www.docker.com/get-started).
+- **Docker Permissions**: The user must have the necessary permissions to execute Docker commands. This may require adding your user to the `docker` group or using `sudo`.
+- **System Resources**: Make sure your system has enough resources (CPU, memory, storage) to run the container efficiently.
+- **Internet Access** (if needed): Depending on the features of the NeoVim configuration, Internet access may be required to download plugins or updates.
+- **Optional Configurations**: If you plan to mount volumes to persist your configurations or projects, ensure that the volume paths are correctly configured.
 
 ## Installation
 
-Pour installer et utiliser cette configuration NeoVim dockerisée, suivez ces étapes :
+To install and use this Dockerized NeoVim setup, follow these steps:
 
-1. Clonez ce dépôt :
+1. Clone this repository:
    ```bash
    git clone https://github.com/0x07cb/neovim-ide.git
    ```
 
-2. [Construisez l'image Docker](DOCKER_BUILD.md).
+2. [Build the Docker image](DOCKER_BUILD.md).
 
-3. Lancez le conteneur.
+3. Start the container.
 
-## Utilisation
+## Usage
 
-Pour utiliser cette configuration NeoVim dockerisée comme vous utiliseriez la commande `nvim` classique, suivez ces étapes :
+To use this Dockerized NeoVim configuration as you would use the regular `nvim` command, follow these steps:
 
-### 1. Lancer le conteneur Docker
+### 1. Start the Docker container
 
-Utilisez la commande suivante pour lancer le conteneur NeoVim, en montant le répertoire courant dans le conteneur :
+Use the following command to start the NeoVim container, mounting the current directory into the container:
 
 ```bash
 docker run --rm -it \
@@ -69,106 +69,106 @@ docker run --rm -it \
     nvim "$@"
 ```
 
-**Explication des options** :
-- `--rm` : Supprime le conteneur une fois qu'il est arrêté.
-- `-it` : Ouvre une session interactive avec un terminal.
-- `-v $(pwd):/home/appuser/data` : Monte le répertoire courant dans le dossier `/home/appuser/data` du conteneur.
-- `"$@"` : Passe tous les arguments de ligne de commande à la commande `nvim` dans le conteneur.
+**Explanation of options**:
+- `--rm`: Removes the container once it is stopped.
+- `-it`: Opens an interactive session with a terminal.
+- `-v $(pwd):/home/appuser/data`: Mounts the current directory into the `/home/appuser/data` folder inside the container.
+- `"$@"`: Passes all command-line arguments to the `nvim` command within the container.
 
-### 2. Créer un alias
+### 2. Create an alias
 
-Pour simplifier l'utilisation, vous pouvez créer un alias dans votre fichier de configuration shell (`.bashrc` ou `.zshrc`). Ajoutez la ligne suivante à votre fichier de configuration :
+To simplify usage, you can create an alias in your shell configuration file (`.bashrc` or `.zshrc`). Add the following line to your configuration file:
 
 ```bash
 alias nvim-docker='docker run --rm -it -v $(pwd):/home/appuser/data neovim-ide:latest nvim'
 ```
 
-Après avoir ajouté cet alias, rechargez votre configuration shell ou redémarrez votre terminal.
+After adding this alias, reload your shell configuration or restart your terminal.
 
-### 3. Utilisation de l'alias
+### 3. Using the alias
 
-Vous pouvez maintenant utiliser `nvim-docker` comme vous utiliseriez `nvim` normalement. Par exemple :
+You can now use `nvim-docker` as you would use `nvim`. For example:
 
 ```bash
-# Ouvrir un fichier
-nvim-docker fichier.txt
+# Open a file
+nvim-docker file.txt
 
-# Ouvrir plusieurs fichiers
-nvim-docker fichier1.txt fichier2.txt
+# Open multiple files
+nvim-docker file1.txt file2.txt
 
-# Ouvrir un répertoire
+# Open a directory
 nvim-docker .
 ```
 
-Le répertoire courant sera automatiquement monté dans le conteneur, vous permettant d'accéder à tous les fichiers du répertoire actuel et de ses sous-répertoires.
+The current directory will automatically be mounted into the container, allowing you to access all files in the current directory and its subdirectories.
 
-### Exemple d'utilisation
+### Example usage
 
-Voici quelques exemples d'utilisation :
+Here are some example usages:
 
-1. Ouvrir un fichier dans le répertoire courant :
+1. Open a file in the current directory:
    ```bash
-   nvim-docker mon_fichier.py
+   nvim-docker my_file.py
    ```
 
-2. Ouvrir plusieurs fichiers :
+2. Open multiple files:
    ```bash
-   nvim-docker fichier1.js fichier2.js fichier3.js
+   nvim-docker file1.js file2.js file3.js
    ```
 
-3. Ouvrir un répertoire pour navigation :
+3. Open a directory for navigation:
    ```bash
    nvim-docker .
    ```
 
-4. Utiliser des options de NeoVim :
+4. Use NeoVim options:
    ```bash
-   nvim-docker -p fichier1.txt fichier2.txt
+   nvim-docker -p file1.txt file2.txt
    ```
-   
-### Remarques
 
-- Assurez-vous d'avoir les permissions nécessaires pour exécuter Docker sans `sudo`. Sinon, vous devrez ajuster l'alias en conséquence.
-- La première exécution peut prendre un peu de temps car Docker doit télécharger l'image. Les lancements suivants seront plus rapides.
-- Toutes les modifications apportées aux fichiers dans NeoVim seront reflétées dans votre système de fichiers local, car le répertoire courant est monté dans le conteneur.
+### Notes
 
-En suivant ces étapes, vous pourrez utiliser efficacement la version dockerisée de NeoVim et profiter d'un environnement de développement cohérent et personnalisable.
+- Make sure you have the necessary permissions to run Docker without `sudo`. Otherwise, you will need to adjust the alias accordingly.
+- The first run may take some time as Docker needs to download the image. Subsequent launches will be faster.
+- Any changes made to files in NeoVim will be reflected in your local file system since the current directory is mounted into the container.
+
+By following these steps, you can efficiently use the Dockerized version of NeoVim and enjoy a consistent, customizable development environment.
 
 ## Contribution
 
-Nous accueillons chaleureusement les contributions à ce projet ! Voici comment vous pouvez participer :
+We warmly welcome contributions to this project! Here's how you can get involved:
 
-1. **Forkez le dépôt** : Créez votre propre copie du projet sur GitHub.
-2. **Créez une branche** : `git checkout -b nom-de-votre-fonctionnalite`
-3. **Committez vos changements** : `git commit -am 'Ajout d'une nouvelle fonctionnalité'`
-4. **Poussez vers la branche** : `git push origin nom-de-votre-fonctionnalite`
-5. **Ouvrez une Pull Request** : Soumettez vos modifications pour révision.
+1. **Fork the repository**: Create your own copy of the project on GitHub.
+2. **Create a branch**: `git checkout -b your-feature-name`
+3. **Commit your changes**: `git commit -am 'Added a new feature'`
+4. **Push to the branch**: `git push origin your-feature-name`
+5. **Open a Pull Request**: Submit your changes for review.
 
-### Lignes directrices pour la contribution
+### Contribution Guidelines
 
-- Assurez-vous que votre code respecte les conventions de style du projet.
-- Testez soigneusement vos modifications avant de soumettre une pull request.
-- Documentez clairement toute nouvelle fonctionnalité ou modification importante.
-- Respectez le code de conduite du projet dans toutes vos interactions.
+- Ensure that your code adheres to the project's style conventions.
+- Thoroughly test your changes before submitting a pull request.
+- Clearly document any new feature or major modification.
+- Follow the project's code of conduct in all interactions.
 
-Nous apprécions grandement votre aide pour améliorer ce projet !
+We greatly appreciate your help in improving this project!
 
-## Licence
+## License
 
-Ce projet est sous licence MIT. Voir le fichier [LICENSE](LICENSE) pour plus de détails.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
 
-## Auteurs
+## Authors
 
 - **Richard Daniel Sanchez** ([0x07cb](https://github.com/0x07cb))
 
-## Remerciements
+## Acknowledgments
 
-Nous tenons à remercier chaleureusement :
+We would like to warmly thank:
 
-- La communauté NeoVim pour leur travail exceptionnel sur cet éditeur puissant.
-- Les contributeurs du projet LazyVim pour leur configuration inspirante.
-- Les développeurs de Docker pour avoir facilité la création d'environnements cohérents.
-- Tous les contributeurs open source dont les outils et plugins enrichissent notre expérience de développement.
-- Les utilisateurs et testeurs de ce projet pour leurs retours précieux et leur soutien continu.
+- The NeoVim community for their outstanding work on this powerful editor.
+- The contributors to the LazyVim project for their inspiring configuration.
+- The developers of Docker for making it easier to create consistent environments.
+- All open-source contributors whose tools and plugins enhance our development experience.
+- The users and testers of this project for their valuable feedback and continued support.
 
-Votre engagement et votre passion pour l'amélioration des outils de développement sont une source d'inspiration constante pour ce projet.
+Your dedication and passion for improving development tools are a constant source of inspiration for this project.
