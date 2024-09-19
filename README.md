@@ -1,6 +1,8 @@
 # neovim-ide
 > Dockerized NeoVim IDE configuration based on the LazyVim plugin.
 
+[English version](README.md)
+
 [![DockerHub](https://img.shields.io/badge/DockerHub-0x07cb%2Fneovim--ide-blue)](https://hub.docker.com/r/0x07cb/neovim-ide)
 
 ## Table of Contents
@@ -50,7 +52,12 @@ To install and use this Dockerized NeoVim setup, follow these steps:
    git clone https://github.com/0x07cb/neovim-ide.git
    ```
 
-2. [Build the Docker image](DOCKER_BUILD.md).
+<!-- [EN] -->
+2. [Build the Docker image](DOCKER_BUILD.md)
+<!-- [/EN] -->
+<!-- [FR]
+2. [Construire l'image Docker](DOCKER_BUILD.fr.md)
+[/FR] -->
 
 3. Start the container.
 
