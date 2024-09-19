@@ -48,12 +48,7 @@ To install and use this Dockerized NeoVim setup, follow these steps:
    git clone https://github.com/0x07cb/neovim-ide.git
    ```
 
-<!-- [EN] -->
 2. [Build the Docker image](DOCKER_BUILD.md)
-<!-- [/EN] -->
-<!-- [FR]
-2. [Construire l'image Docker](DOCKER_BUILD.fr.md)
-[/FR] -->
 
 3. Start the container.
 
