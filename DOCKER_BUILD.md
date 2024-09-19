@@ -1,5 +1,6 @@
-```markdown
 # Building the Docker Image
+
+[Version française](DOCKER_BUILD.fr.md)
 
 To build the neovim-ide Docker image, follow these steps:
 
@@ -31,6 +32,3 @@ If you only want to build the image without pushing it, remove the `--push` argu
 However, if you are pushing the image to the Docker registry, make sure the registry is configured and accessible. In that case, the `-t` argument must include the Docker registry, and you will need to provide the correct username and repository by replacing `<username>` and `<repository>` with the appropriate values.
 
 If Docker Engine is not installed on your system, follow the instructions on the official documentation page: [Docker Engine - Install](https://docs.docker.com/engine/install/)
-```
-
-Here is the translated version of the text in English.

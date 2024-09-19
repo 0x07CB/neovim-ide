@@ -1,5 +1,7 @@
 # Construction de l'image Docker
 
+[English version](DOCKER_BUILD.md)
+
 Pour construire l'image Docker de neovim-ide, suivez ces étapes :
 
 ## 1. Créer un builder multi-plateforme

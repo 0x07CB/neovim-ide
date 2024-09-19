@@ -1,0 +1,8 @@
+   lang: en
+   languages: ["en", "fr"]
+   default_lang: "en"
+   exclude_from_localization: ["scripts", "src"]
+   parallel_localization: true
+
+   plugins:
+     - jekyll-multiple-languages-plugin
