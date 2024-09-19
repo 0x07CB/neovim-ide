@@ -8,10 +8,12 @@
     --padding-header: 20px;
     --padding-footer: 10px;
     --nav-margin: 0 10px;
-    --content-max-width: 1200px;
-    --content-padding: 0 20px;
+    --content-max-width: 800px;
+    --content-padding: 0 40px;
     --code-background: #f4f4f4;
     --code-border-color: #ddd;
+    --section-spacing: 2em;
+    --paragraph-indent: 1em;
 }
 
 /* Reset de base */
@@ -27,6 +29,7 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    line-height: 1.6;
 }
 
 /* Header */
@@ -39,7 +42,7 @@ header {
 
 /* Navigation */
 nav {
-    margin: 10px 0;
+    margin: 20px 0;
 }
 
 nav ul {
@@ -68,7 +71,6 @@ nav a:hover {
 /* Main Content */
 main {
     flex: 1;
-    padding: 20px;
     max-width: var(--content-max-width);
     margin: 0 auto;
     padding: var(--content-padding);
@@ -76,38 +78,27 @@ main {
 
 /* Styles pour les titres et leur contenu */
 main h1, main h2, main h3, main h4, main h5, main h6 {
-    margin-top: 1.5em;
+    margin-top: var(--section-spacing);
     margin-bottom: 0.5em;
 }
 
-main h1 + p,
-main h2 + p,
-main h3 + p,
-main h4 + p,
-main h5 + p,
-main h6 + p {
-    padding-left: 20px;
-    border-left: 3px solid var(--primary-color);
-    margin-left: 10px;
+main h1 + *, main h2 + *, main h3 + *, main h4 + *, main h5 + *, main h6 + * {
+    margin-top: 1em;
 }
 
-/* Styles pour les listes sous les titres */
-main h1 + ul,
-main h2 + ul,
-main h3 + ul,
-main h4 + ul,
-main h5 + ul,
-main h6 + ul,
-main h1 + ol,
-main h2 + ol,
-main h3 + ol,
-main h4 + ol,
-main h5 + ol,
-main h6 + ol {
-    padding-left: 40px;
-    margin-left: 10px;
+main p {
+    margin-bottom: 1em;
+    text-indent: var(--paragraph-indent);
 }
 
+main ul, main ol {
+    margin-bottom: 1em;
+    padding-left: 2em;
+}
+
+main li {
+    margin-bottom: 0.5em;
+}
 
 /* Code blocks */
 pre {
@@ -116,7 +107,7 @@ pre {
     border-radius: 4px;
     padding: 15px;
     overflow-x: auto;
-    margin: 15px 0;
+    margin: 1.5em 0;
 }
 
 code {
@@ -129,11 +120,15 @@ footer {
     color: var(--secondary-color);
     text-align: center;
     padding: var(--padding-footer);
-    /* Suppression du positionnement fixe */
+    margin-top: var(--section-spacing);
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
+    :root {
+        --content-padding: 0 20px;
+    }
+
     nav ul {
         flex-direction: column;
         align-items: center;
@@ -143,15 +138,6 @@ footer {
         margin: 5px 0;
     }
 
-    footer {
-        position: relative;
-    }
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    /* ... (styles existants) ... */
-    
     main {
         padding: 10px;
     }
