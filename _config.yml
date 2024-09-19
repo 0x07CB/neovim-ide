@@ -4,6 +4,18 @@ baseurl: "/neovim-ide"
 url: "https://0x07cb.github.io"
 lang: en
 
+languages:
+  en:
+    name: English
+    lang_code: en
+    site_title: neovim-ide
+    site_description: Dockerized NeoVim IDE configuration based on the LazyVim plugin
+  fr:
+    name: Français
+    lang_code: fr
+    site_title: neovim-ide
+    site_description: Configuration de NeoVim dockerisée basée sur le plugin LazyVim
+
 markdown: kramdown
 kramdown:
   input: GFM
