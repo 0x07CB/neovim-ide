@@ -74,6 +74,41 @@ main {
     padding: var(--content-padding);
 }
 
+/* Styles pour les titres et leur contenu */
+main h1, main h2, main h3, main h4, main h5, main h6 {
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+}
+
+main h1 + p,
+main h2 + p,
+main h3 + p,
+main h4 + p,
+main h5 + p,
+main h6 + p {
+    padding-left: 20px;
+    border-left: 3px solid var(--primary-color);
+    margin-left: 10px;
+}
+
+/* Styles pour les listes sous les titres */
+main h1 + ul,
+main h2 + ul,
+main h3 + ul,
+main h4 + ul,
+main h5 + ul,
+main h6 + ul,
+main h1 + ol,
+main h2 + ol,
+main h3 + ol,
+main h4 + ol,
+main h5 + ol,
+main h6 + ol {
+    padding-left: 40px;
+    margin-left: 10px;
+}
+
+
 /* Code blocks */
 pre {
     background-color: var(--code-background);
