@@ -1,14 +1,13 @@
-  title: neovim-ide
+title: neovim-ide
 description: Dockerized NeoVim IDE configuration based on the LazyVim plugin
 baseurl: "/neovim-ide"
 url: "https://0x07cb.github.io"
 lang: en
 
-# Supprimez ces lignes
-# languages: ["en", "fr"]
-# default_lang: "en"
-# exclude_from_localization: ["scripts", "src"]
-# parallel_localization: true
+markdown: kramdown
+kramdown:
+  input: GFM
+  hard_wrap: false
 
-# plugins:
-#   - jekyll-multiple-languages-plugin
+plugins:
+  - jekyll-seo-tag

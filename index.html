@@ -2,9 +2,11 @@
 layout: default
 ---
 {% if page.lang == 'fr' %}
-  {% include_relative _i18n/fr/home.md %}
+  {% capture md_content %}{% include_relative _i18n/fr/home.md %}{% endcapture %}
+  {{ md_content | markdownify }}
 {% else %}
-  {% include_relative _i18n/en/home.md %}
+  {% capture md_content %}{% include_relative _i18n/en/home.md %}{% endcapture %}
+  {{ md_content | markdownify }}
 {% endif %}
 
 <div class="language-switcher">
