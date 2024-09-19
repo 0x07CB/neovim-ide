@@ -1,0 +1,14 @@
+---
+layout: default
+---
+{% translate_file home.md %}
+
+<div class="language-switcher">
+  {% for lang in site.languages %}
+    {% if lang == site.lang %}
+      {{ lang }}
+    {% else %}
+      <a href="{% if lang == site.default_lang %}{{ site.baseurl }}{{ page.url }}{% else %}{{ site.baseurl }}/{{ lang }}{{ page.url }}{% endif %}">{{ lang }}</a>
+    {% endif %}
+  {% endfor %}
+</div>
