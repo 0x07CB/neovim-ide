@@ -1,33 +1,32 @@
-# Use a multi-arch base image that supports both amd64 and arm64
+# Use a multi-architecture base image that supports both amd64 and arm64
 
-# Stage 1: Prepare build arguments
+# Step 1: Prepare build arguments
 FROM --platform=$BUILDPLATFORM alpine AS build-env
 ARG TARGETARCH
 ARG TARGETPLATFORM
 
-# Stage 2: Main build stage
+# Step 2: Main build stage
 FROM --platform=$BUILDPLATFORM node:bookworm
 
-# Métadonnées sur le mainteneur
+# Metadata about the maintainer
 LABEL maintainer="0x07cb"
 
 RUN echo "constructing the image..."
-# Utilisateur root pour les installations
-# Création d'un utilisateur non-root avec des privilèges sudo limités
-# Crée un nouvel utilisateur pour l'usage de l'application
+# Root user for installations
+# Create a non-root user with limited sudo privileges
+# Create a new user for application use
 RUN useradd -m -s /bin/bash -G sudo appuser && \
     echo 'appuser ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
-# Création du dossier 'data' dans le répertoire personnel de l'utilisateur appuser
+# Create the 'data' folder in the appuser's home directory
 RUN mkdir -p /home/appuser/data && chown appuser:appuser /home/appuser/data
 
-
-# Utilisation temporaire de l'utilisateur root pour les installations
-# Le changement vers l'utilisateur non-root se fera après les installations
+# Temporary use of root for installations
+# Switch to non-root user will happen after installations
 USER root
 
-# Note: La définition/redéfinition du nom d'utilisateur et du mot de passe
-# au premier lancement du conteneur nécessitera un script d'initialisation
-# à exécuter lors du démarrage du conteneur, ce qui n'est pas inclus ici.
+# Note: Defining/redefining the username and password
+# at the first container launch will require an initialization script
+# to be executed when the container starts, which is not included here.
 
 # Install dependencies
 RUN apt-get update 
@@ -41,23 +40,23 @@ RUN apt-get install -y \
     build-essential \
     shfmt 
 
-# Nettoyage du cache APT et suppression des paquets inutiles
+# Clean APT cache and remove unnecessary packages
 RUN apt-get autoremove -y \
     && apt-get clean -y \
     && rm -rf /var/lib/apt/lists/*
 
-# Installation de Go depuis les sources 
-# Utilisez la variable $TARGETARCH pour déterminer l'architecture
-# Installation de Go depuis les sources 
+# Install Go from source 
+# Use the $TARGETARCH variable to determine the architecture
+# Install Go from source
 WORKDIR /tmp 
-# Condition pour amd64
+# Condition for amd64
 RUN --mount=type=cache,target=/root/.cache/go-build \
     if [ "$(uname -m)" = "x86_64" ]; then \
         wget https://go.dev/dl/go1.23.1.linux-amd64.tar.gz \
         && rm -rf /usr/local/go && tar -C /usr/local -xzf go1.23.1.linux-amd64.tar.gz; \
     fi
 
-# Condition pour arm64
+# Condition for arm64
 RUN --mount=type=cache,target=/root/.cache/go-build \
     if [ "$(uname -m)" = "aarch64" ]; then \
         wget https://go.dev/dl/go1.23.1.linux-arm64.tar.gz \
@@ -68,8 +67,8 @@ RUN echo "export PATH=\$PATH:/usr/local/go/bin" >> /etc/profile
 ENV PATH=$PATH:/usr/local/go/bin
 RUN echo "$(go version)"
 
-# Installation de Rust
-# Utilisez la variable $TARGETARCH pour déterminer l'architecture
+# Install Rust
+# Use the $TARGETARCH variable to determine the architecture
 RUN --mount=type=cache,target=/root/.cache/go-build \
     if [ "$(uname -m)" = "aarch64" ]; then \
         curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain stable-aarch64-unknown-linux-gnu; \
@@ -81,7 +80,7 @@ ENV PATH=$PATH:/root/.cargo/bin
 RUN cargo install empty-library || true
 RUN cargo install stylua
 
-# Clone neovim repository , compile and install from source
+# Clone neovim repository, compile and install from source
 RUN echo -e "\e[32mcloning neovim repository...\e[0m"
 WORKDIR /opt/
 RUN git clone https://github.com/neovim/neovim.git
@@ -96,14 +95,14 @@ RUN echo -e "\e[32mINSTALL neovim...\e[0m"
 RUN make CMAKE_INSTALL_PREFIX=/usr/local/ install
 RUN echo -e "\e[32mneovim installed successfully\e[0m"
 
-# Change l'utilisateur à 'newuser'
+# Switch user to 'appuser'
 USER appuser
 WORKDIR /home/appuser
 
-# clone repo of nerdfonts
+# Clone nerdfonts repository
 RUN git clone --depth 1 https://github.com/ryanoasis/nerd-fonts.git
 WORKDIR /home/appuser/nerd-fonts/
-# install the font
+# Install the font
 RUN ./install.sh
 
 WORKDIR /home/appuser/
@@ -112,11 +111,11 @@ RUN git clone https://github.com/LazyVim/starter ~/.config/nvim
 WORKDIR /home/appuser/.config/nvim/
 # Remove the .git folder, so you can add it to your own repo later
 RUN rm -rf ./.git
-# Install the plugin manager "lazy"
+# Install the "lazy" plugin manager
 RUN nvim & sleep 5s && nvim -c "Lazy! install | qa!" & sleep 5 && nvim -c "Lazy! update | qa!"
 
 WORKDIR /home/appuser/
-# start neovim
+# Start neovim
 RUN git clone https://github.com/github/copilot.vim \
    ~/.config/nvim/pack/github/start/copilot.vim
 
