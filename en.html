@@ -1,0 +1,12 @@
+---:en.html
+---
+layout: default
+lang: en
+---
+{% capture md_content %}{% include_relative _i18n/en/home.md %}{% endcapture %}
+{{ md_content | markdownify }}
+
+<div class="language-switcher">
+  English
+  <a href="{{ site.baseurl }}/fr">Français</a>
+</div>
