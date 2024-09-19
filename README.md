@@ -1,7 +1,7 @@
 # neovim-ide
 > Dockerized NeoVim IDE configuration based on the LazyVim plugin.
 
-[English version](README.md)
+[Version française](README.fr.md)
 
 [![DockerHub](https://img.shields.io/badge/DockerHub-0x07cb%2Fneovim--ide-blue)](https://hub.docker.com/r/0x07cb/neovim-ide)
 
