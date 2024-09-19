@@ -1,8 +1,12 @@
-   lang: en
-   languages: ["en", "fr"]
-   default_lang: "en"
-   exclude_from_localization: ["scripts", "src"]
-   parallel_localization: true
+title: neovim-ide
+description: Dockerized NeoVim IDE configuration based on the LazyVim plugin
+baseurl: "/neovim-ide"
+url: "https://0x07cb.github.io"
+lang: en
+languages: ["en", "fr"]
+default_lang: "en"
+exclude_from_localization: ["scripts", "src"]
+parallel_localization: true
 
-   plugins:
-     - jekyll-multiple-languages-plugin
+plugins:
+  - jekyll-multiple-languages-plugin
