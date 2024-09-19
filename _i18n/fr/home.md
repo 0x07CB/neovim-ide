@@ -8,12 +8,10 @@
 3. [Prérequis](#prérequis)
 4. [Installation](#installation)
 5. [Utilisation](#utilisation)
-6. [Configuration](#configuration)
-7. [Personnalisation des Plugins](#personnalisation-des-plugins)
-8. [Contribution](#contribution)
-9. [Licence](#licence)
-10. [Auteurs](#auteurs)
-11. [Remerciements](#remerciements)
+6. [Contribution](#contribution)
+7. [Licence](#licence)
+8. [Auteurs](#auteurs)
+9. [Remerciements](#remerciements)
 
 ## Introduction
 

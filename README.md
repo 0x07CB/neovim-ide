@@ -12,12 +12,10 @@
 3. [Requirements](#requirements)
 4. [Installation](#installation)
 5. [Usage](#usage)
-6. [Configuration](#configuration)
-7. [Plugin Customization](#plugin-customization)
-8. [Contribution](#contribution)
-9. [License](#license)
-10. [Authors](#authors)
-11. [Acknowledgments](#acknowledgments)
+6. [Contribution](#contribution)
+7. [License](#license)
+8. [Authors](#authors)
+9. [Acknowledgments](#acknowledgments)
 
 ## Introduction
 
