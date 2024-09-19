@@ -1,14 +1,18 @@
 ---
 layout: default
 ---
-{% translate_file home.md %}
+{% if page.lang == 'fr' %}
+  {% include_relative _i18n/fr/home.md %}
+{% else %}
+  {% include_relative _i18n/en/home.md %}
+{% endif %}
 
 <div class="language-switcher">
-  {% for lang in site.languages %}
-    {% if lang == site.lang %}
-      {{ lang }}
-    {% else %}
-      <a href="{% if lang == site.default_lang %}{{ site.baseurl }}{{ page.url }}{% else %}{{ site.baseurl }}/{{ lang }}{{ page.url }}{% endif %}">{{ lang }}</a>
-    {% endif %}
-  {% endfor %}
+  {% if page.lang == 'fr' %}
+    <a href="{{ site.baseurl }}/">English</a>
+    Français
+  {% else %}
+    English
+    <a href="{{ site.baseurl }}/fr">Français</a>
+  {% endif %}
 </div>
