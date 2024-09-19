@@ -1,6 +1,5 @@
 /* assets/css/style.css */
 
-/* Variables pour faciliter la gestion des couleurs et des tailles */
 :root {
     --primary-color: #333;
     --secondary-color: #fff;
@@ -9,6 +8,10 @@
     --padding-header: 20px;
     --padding-footer: 10px;
     --nav-margin: 0 10px;
+    --content-max-width: 1200px;
+    --content-padding: 0 20px;
+    --code-background: #f4f4f4;
+    --code-border-color: #ddd;
 }
 
 /* Reset de base */
@@ -66,6 +69,23 @@ nav a:hover {
 main {
     flex: 1;
     padding: 20px;
+    max-width: var(--content-max-width);
+    margin: 0 auto;
+    padding: var(--content-padding);
+}
+
+/* Code blocks */
+pre {
+    background-color: var(--code-background);
+    border: 1px solid var(--code-border-color);
+    border-radius: 4px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 15px 0;
+}
+
+code {
+    font-family: 'Courier New', Courier, monospace;
 }
 
 /* Footer */
@@ -90,5 +110,14 @@ footer {
 
     footer {
         position: relative;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    /* ... (styles existants) ... */
+    
+    main {
+        padding: 10px;
     }
 }
